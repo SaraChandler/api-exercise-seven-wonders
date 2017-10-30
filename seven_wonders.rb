@@ -1,10 +1,19 @@
-require 'httparty'
+require 'HTTParty'
 
-#Starter Code:
+def location(input)
+
+  response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{input}&key=AIzaSyAQ1O9R0sUpFZovcF_RSclKGYSs4QGS4d0").parsed_response
+  location = response["results"][0]["geometry"]["location"]
+  return location
+end
+
 seven_wonders = ["Great Pyramind of Giza", "Hanging Gardens of Babylon", "Colossus of Rhodes", "Pharos of Alexandria", "Statue of Zeus at Olympia", "Temple of Artemis", "Mausoleum at Halicarnassus"]
 
-
-
+output = {}
+seven_wonders.each do |wonder|
+output["#{wonder}"] = location(wonder)
+end
+puts output
 
 
 
